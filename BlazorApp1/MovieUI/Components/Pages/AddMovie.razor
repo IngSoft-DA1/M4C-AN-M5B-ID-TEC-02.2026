@@ -1,0 +1,39 @@
+@page "/AddMovie"
+@using Domain
+@using Services
+
+@inject NavigationManager Navigator
+@inject MovieService MovieService;
+
+<h3>AddMovie</h3>
+
+<EditForm Model="@movie" OnValidSubmit="@OnSubmit">  
+    
+    <div>
+        <label for="movieName">Nombre:</label>
+        <input type="text" @bind="movie.Name" class="form-control"/>
+        <label for="releaseDate"></label>
+        <input id="releaseDate" type="date" class="form-control"/>
+        <br>
+        <label for="movieDescription">Descripcion:</label>
+        <input type="text" @bind="movie.ShortDescription" class="form-control"/>
+        <br>
+        <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+    </div>
+
+</EditForm>
+
+@code {
+    Movie movie = new Movie();
+    
+    private void OnSubmit()
+    {
+        MovieService.AddMovie(movie);
+        List<Movie> movies = MovieService.GetMovies();
+        foreach(Movie m in movies)
+        {
+            Console.WriteLine(m.Name);
+        }
+    }
+
+}
