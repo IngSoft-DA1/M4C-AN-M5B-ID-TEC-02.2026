@@ -1,6 +1,7 @@
 using BlazorApp1.Components;
 using DataAccess;
 using DataAccess.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,10 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddDbContext<SqlContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddSingleton<MovieService>();
-builder.Services.AddSingleton<MovieRepository>();
-builder.Services.AddSingleton<InMemoryDatabase>();
+builder.Services.AddScoped<MovieService>();
+builder.Services.AddScoped<MovieRepositorySql>();
 
 var app = builder.Build();
 

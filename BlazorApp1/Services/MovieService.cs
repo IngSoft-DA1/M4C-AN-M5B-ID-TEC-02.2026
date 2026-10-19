@@ -5,9 +5,9 @@ namespace Services;
 
 public class MovieService
 {
-    private readonly MovieRepository _movieRepository;
+    private readonly MovieRepositorySql _movieRepository;
 
-    public MovieService(MovieRepository movieRepository)
+    public MovieService(MovieRepositorySql movieRepository)
     {
         _movieRepository = movieRepository;
     }
